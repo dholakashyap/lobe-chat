@@ -13,7 +13,7 @@ export interface ChatCompletionErrorPayload {
   endpoint?: string;
   error: object;
   errorType: ILobeAgentRuntimeErrorType;
-  provider: ModelProvider;
+  provider: string;
 }
 
 export interface CreateChatCompletionOptions {
@@ -30,6 +30,7 @@ export enum ModelProvider {
   Baichuan = 'baichuan',
   Bedrock = 'bedrock',
   Cloudflare = 'cloudflare',
+  Cohere = 'cohere',
   DeepSeek = 'deepseek',
   /**
    * @deprecated
@@ -54,6 +55,7 @@ export enum ModelProvider {
   Ollama = 'ollama',
   OpenAI = 'openai',
   OpenRouter = 'openrouter',
+  PPIO = 'ppio',
   Perplexity = 'perplexity',
   Qwen = 'qwen',
   SambaNova = 'sambanova',
@@ -66,6 +68,7 @@ export enum ModelProvider {
   TogetherAI = 'togetherai',
   Upstage = 'upstage',
   VLLM = 'vllm',
+  VertexAI = 'vertexai',
   Volcengine = 'volcengine',
   Wenxin = 'wenxin',
   XAI = 'xai',

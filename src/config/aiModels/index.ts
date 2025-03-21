@@ -8,6 +8,7 @@ import { default as azureai } from './azureai';
 import { default as baichuan } from './baichuan';
 import { default as bedrock } from './bedrock';
 import { default as cloudflare } from './cloudflare';
+import { default as cohere } from './cohere';
 import { default as deepseek } from './deepseek';
 import { default as doubao } from './doubao';
 import { default as fireworksai } from './fireworksai';
@@ -30,6 +31,7 @@ import { default as ollama } from './ollama';
 import { default as openai } from './openai';
 import { default as openrouter } from './openrouter';
 import { default as perplexity } from './perplexity';
+import { default as ppio } from './ppio';
 import { default as qwen } from './qwen';
 import { default as sambanova } from './sambanova';
 import { default as sensenova } from './sensenova';
@@ -40,6 +42,7 @@ import { default as taichu } from './taichu';
 import { default as tencentcloud } from './tencentcloud';
 import { default as togetherai } from './togetherai';
 import { default as upstage } from './upstage';
+import { default as vertexai } from './vertexai';
 import { default as vllm } from './vllm';
 import { default as volcengine } from './volcengine';
 import { default as wenxin } from './wenxin';
@@ -75,6 +78,7 @@ export const LOBE_DEFAULT_MODEL_LIST = buildDefaultModelList({
   baichuan,
   bedrock,
   cloudflare,
+  cohere,
   deepseek,
   doubao,
   fireworksai,
@@ -97,6 +101,7 @@ export const LOBE_DEFAULT_MODEL_LIST = buildDefaultModelList({
   openai,
   openrouter,
   perplexity,
+  ppio,
   qwen,
   sambanova,
   sensenova,
@@ -107,6 +112,7 @@ export const LOBE_DEFAULT_MODEL_LIST = buildDefaultModelList({
   tencentcloud,
   togetherai,
   upstage,
+  vertexai,
   vllm,
   volcengine,
   wenxin,
@@ -123,6 +129,7 @@ export { default as azureai } from './azureai';
 export { default as baichuan } from './baichuan';
 export { default as bedrock } from './bedrock';
 export { default as cloudflare } from './cloudflare';
+export { default as cohere } from './cohere';
 export { default as deepseek } from './deepseek';
 export { default as doubao } from './doubao';
 export { default as fireworksai } from './fireworksai';
@@ -145,6 +152,7 @@ export { default as ollama } from './ollama';
 export { default as openai } from './openai';
 export { default as openrouter } from './openrouter';
 export { default as perplexity } from './perplexity';
+export { default as ppio } from './ppio';
 export { default as qwen } from './qwen';
 export { default as sambanova } from './sambanova';
 export { default as sensenova } from './sensenova';
@@ -155,6 +163,7 @@ export { default as taichu } from './taichu';
 export { default as tencentcloud } from './tencentcloud';
 export { default as togetherai } from './togetherai';
 export { default as upstage } from './upstage';
+export { default as vertexai } from './vertexai';
 export { default as vllm } from './vllm';
 export { default as volcengine } from './volcengine';
 export { default as wenxin } from './wenxin';
