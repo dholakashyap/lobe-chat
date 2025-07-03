@@ -30,6 +30,7 @@ import { today } from '@/utils/time';
 import {
   MessagePluginItem,
   chunks,
+  documents,
   embeddings,
   fileChunks,
   files,
@@ -154,6 +155,29 @@ export class MessageModel {
       })),
     );
 
+    // 获取关联的文档内容
+    const fileIds = relatedFileList.map((file) => file.id).filter(Boolean);
+
+    let documentsMap: Record<string, string> = {};
+
+    if (fileIds.length > 0) {
+      const documentsList = await this.db
+        .select({
+          content: documents.content,
+          fileId: documents.fileId,
+        })
+        .from(documents)
+        .where(inArray(documents.fileId, fileIds));
+
+      documentsMap = documentsList.reduce(
+        (acc, doc) => {
+          if (doc.fileId) acc[doc.fileId] = doc.content as string;
+          return acc;
+        },
+        {} as Record<string, string>,
+      );
+    }
+
     const imageList = relatedFileList.filter((i) => (i.fileType || '').startsWith('image'));
     const fileList = relatedFileList.filter((i) => !(i.fileType || '').startsWith('image'));
 
@@ -214,6 +238,7 @@ export class MessageModel {
             .filter((relation) => relation.messageId === item.id)
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             .map<ChatFileItem>(({ id, url, size, fileType, name }) => ({
+              content: documentsMap[id],
               fileType: fileType!,
               id,
               name: name!,
@@ -382,15 +407,20 @@ export class MessageModel {
       .orderBy(desc(sql`heatmaps_date`));
 
     const heatmapData: HeatmapsProps['data'] = [];
-    let currentDate = startDate;
+    let currentDate = startDate.clone();
+
+    const dateCountMap = new Map<string, number>();
+    for (const item of result) {
+      if (item?.date) {
+        const dateStr = dayjs(item.date as string).format('YYYY-MM-DD');
+        dateCountMap.set(dateStr, Number(item.count) || 0);
+      }
+    }
 
     while (currentDate.isBefore(endDate) || currentDate.isSame(endDate, 'day')) {
       const formattedDate = currentDate.format('YYYY-MM-DD');
-      const matchingResult = result.find(
-        (r) => r?.date && dayjs(r.date as string).format('YYYY-MM-DD') === formattedDate,
-      );
+      const count = dateCountMap.get(formattedDate) || 0;
 
-      const count = matchingResult ? matchingResult.count : 0;
       const levelCount = count > 0 ? Math.ceil(count / 5) : 0;
       const level = levelCount > 4 ? 4 : levelCount;
 
